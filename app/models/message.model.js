@@ -6,10 +6,16 @@ const MessageSchema = mongoose.Schema({
     title: String,
     content: String,
     date: Date,
+    link: {
+        type : String,
+        required : false
+    },
     categories: [{ type: Schema.Types.ObjectId, ref: 'Category' }]
 }, {
     timestamps: true
 });
+
+MessageSchema.index( {date: 1} );
 
 MessageSchema.plugin(mongoosePaginate);
 

@@ -14,6 +14,7 @@ exports.create = (req, res) => {
         title: req.body.title || "Untitled Message", 
         content: req.body.content || "No text for Message",
         date: req.body.date || "No date for Message",
+        link: req.body.link
     });
     
     if(req.body.categoryId) message.categories.push(req.body.categoryId);
