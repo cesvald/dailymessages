@@ -12,21 +12,24 @@ const UserSchema = new Schema({
   password : {
     type : String,
     required : true
-  }
+  },
+  messages: [{
+      type: Schema.Types.ObjectId,
+      ref: 'Message',
+      required: false
+  }]
 }, {
     timestamps: true
 });
 
 UserSchema.pre('save', function(next){
-    const user = this;
     const hash = bcrypt.hash(this.password, 10);
     this.password = hash;
     next();
 })
 
 UserSchema.methods.isValidPassword = function(password) {
-    const user = this;
-    const compare = bcrypt.compare(password, user.password);
+    const compare = bcrypt.compare(password, this.password);
     return compare;
 }
 

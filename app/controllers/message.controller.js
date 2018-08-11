@@ -54,7 +54,7 @@ exports.findAll = (req, res) => {
 
 // Find a single message with a messageId
 exports.findOne = (req, res) => {
-    Message.findById(req.params.messageId)
+    Message.findById(req.params.messageId).populate('categories')
     .then(message => {
         if(!message) {
             return res.status(404).send({

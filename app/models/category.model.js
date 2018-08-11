@@ -3,8 +3,7 @@ const mongoosePaginate = require('mongoose-paginate');
 const Schema = mongoose.Schema
 
 const CategorySchema = mongoose.Schema({
-    name: String,
-    messages: [{ type: Schema.Types.ObjectId, ref: 'Message' }]
+    name: String
 }, {
     timestamps: true
 });

@@ -1,6 +1,5 @@
 module.exports = (app) => {
 	const cors = require('cors')
-	const authentication = require('../controllers/auth.controller.js');
 	const passport = require('passport');
 	const jwt = require('jsonwebtoken');
 	
@@ -10,7 +9,7 @@ module.exports = (app) => {
 	app.post('/signup', passport.authenticate('signup', { session : false }), (req, res, next) => {
 		res.send({ 
 			message : 'Signup successful',
-			user : req.user 
+			user : req.user
 		});
 	});
 	

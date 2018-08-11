@@ -1,9 +1,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
+var cors = require('cors')
+    
 // Configuring the database
 const dbConfig = require('./config/database.config.js');
 const mongoose = require('mongoose');
+
+const passport = require('passport');
+
+const userRoutes = require('./app/routes/user.routes.js')
 
 mongoose.Promise = global.Promise;
 
@@ -19,6 +25,8 @@ mongoose.connect(dbConfig.url)
 // create express app
 const app = express();
 
+app.use(cors())
+
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }))
 
@@ -30,6 +38,8 @@ require('./services/auth');
 require('./app/routes/message.routes.js')(app);
 require('./app/routes/category.routes.js')(app);
 require('./app/routes/auth.routes.js')(app);
+
+app.use('/user', passport.authenticate('jwt', { session : false }), userRoutes);
 
 // listen for requests
 app.listen(8080, () => {
