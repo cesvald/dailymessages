@@ -44,6 +44,11 @@ app.use('/user', passport.authenticate('jwt', { session : false }), userRoutes);
 app.use('/admin', passport.authenticate('jwt', { session : false }), auth.authAdmin, adminRoutes)
 
 // listen for requests
-app.listen(8080, () => {
+
+// setup ports
+var server_port = process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT;
+var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || process.env.IP;
+
+app.listen(server_port, server_ip_address, () => {
     console.log("Server is listening on port 8080");
 });
