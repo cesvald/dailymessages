@@ -60,3 +60,21 @@ passport.use('login', new localStrategy({
     return done(error);
   }
 }));
+
+var auth = {
+    authAdmin: function(req, res, next){
+        UserModel.findById(req.user._id).then(user => {
+            if(user.email == 'sistemas@evdsky.com'){
+                next();
+            }
+            else{
+                res.send({ 
+        			message : 'Is not an admin',
+        			user : req.user
+        		});
+            }
+        });
+    }
+}
+
+module.exports = auth;

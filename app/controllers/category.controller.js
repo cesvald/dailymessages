@@ -3,10 +3,9 @@ const Category = require('../models/category.model.js');
 // Create and Save a new Category
 exports.create = (req, res) => {
     // Validate request
-    console.log(req)
     if(!req.body.name) {
         return res.status(400).send({
-            category: "Category name can not be empty"
+            message: "Category name can not be empty"
         });
     }
 
@@ -21,7 +20,7 @@ exports.create = (req, res) => {
         res.send(data);
     }).catch(err => {
         res.status(500).send({
-            category: err.category || "Some error occurred while creating the Category."
+            message: err.category || "Some error occurred while creating the Category."
         });
     });
 
@@ -41,7 +40,7 @@ exports.findAll = (req, res) => {
         res.send(categories);
     }).catch(err => {
         res.status(500).send({
-            category: err.category || "Some error occurred while retrieving categories."
+            message: err.category || "Some error occurred while retrieving categories."
         });
     });
 };
@@ -52,18 +51,18 @@ exports.findOne = (req, res) => {
     .then(category => {
         if(!category) {
             return res.status(404).send({
-                category: "Category not found with id " + req.params.categoryId
+                message: "Category not found with id " + req.params.categoryId
             });            
         }
         res.send(category);
     }).catch(err => {
         if(err.kind === 'ObjectId') {
             return res.status(404).send({
-                category: "Category not found with id " + req.params.categoryId
+                message: "Category not found with id " + req.params.categoryId
             });                
         }
         return res.status(500).send({
-            category: "Error retrieving category with id " + req.params.categoryId
+            message: "Error retrieving category with id " + req.params.categoryId
         });
     });
 };
@@ -73,7 +72,7 @@ exports.update = (req, res) => {
     // Validate Request
     if(!req.body.name) {
         return res.status(400).send({
-            category: "Category name can not be empty"
+            message: "Category name can not be empty"
         });
     }
 
@@ -84,18 +83,18 @@ exports.update = (req, res) => {
     .then(category => {
         if(!category) {
             return res.status(404).send({
-                category: "Category not found with id " + req.params.categoryId
+                message: "Category not found with id " + req.params.categoryId
             });
         }
         res.send(category);
     }).catch(err => {
         if(err.kind === 'ObjectId') {
             return res.status(404).send({
-                category: "Category not found with id " + req.params.categoryId
+                message: "Category not found with id " + req.params.categoryId
             });                
         }
         return res.status(500).send({
-            category: "Error updating category with id " + req.params.categoryId
+            message: "Error updating category with id " + req.params.categoryId
         });
     });
 };
@@ -117,7 +116,7 @@ exports.delete = (req, res) => {
             });                
         }
         return res.status(500).send({
-            category: "Could not delete category with id " + req.params.categoryId
+            message: "Could not delete category with id " + req.params.categoryId
         });
     });
 };

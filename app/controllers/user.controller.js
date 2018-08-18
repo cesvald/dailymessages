@@ -11,7 +11,7 @@ exports.addMessage = (req, res) => {
         Message.findById(req.body.messageId).then( message => {
             user.messages.push(message);
             user.save().then(user => {
-                res.send(user);
+                res.send({message: "Message added successfully"});
             }).catch(err => {
                 return res.status(500).send({
                     message: "Error adding message with id " + req.body.messageId
@@ -30,7 +30,7 @@ exports.removeMessage = (req, res) => {
     User.findById(req.user._id).then( user => {
         user.messages.pull(req.body.messageId);
         user.save().then(user => {
-            res.send(user);
+            res.send({message: "Mensage removed successfully"});
         }).catch(err => {
             return res.status(500).send({
                 message: "Error removing message with id " + req.params.messageId
