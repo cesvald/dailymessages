@@ -89,7 +89,8 @@ exports.update = (req, res) => {
         title: req.body.title || "Untitled Message",
         content: req.body.content || "No text for Message",
         date: req.body.date || "No date for Messsage",
-        categoryId: req.body.categoryId
+        categoryId: req.body.categoryId,
+        link: req.body.link
     }, {new: true})
     .then(message => {
         if(!message) {
